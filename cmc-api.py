@@ -14,22 +14,34 @@ class CMC:
         self.session = Session()
         self.session.headers.update(self.headers)
         
-    def get50Coins(self):
+    def __get50Coins(self):
         url = self.apiurl + '/v1/cryptocurrency/map'
         r = self.session.get(url)
         data = r.json()['data'][0:50]
         return data
     
-    def getCurrencyQuote(self, symbol, convert='USD'):
+    def __getLatestCurrencyQuote(self, symbol, convert='USD'):
         url = self.apiurl + '/v2/cryptocurrency/quotes/latest'
-        parameters = {'symbol': symbol,'convert':convert}
+        parameters = {'symbol': symbol,'convert': convert}
         r = self.session.get(url, params=parameters)
         data = r.json()['data']
         return data
     
     def getCurrencyPriceConverted(self,symbol,convert='USD'):
-        return self.getCurrencyQuote(symbol)[symbol][0]['quote'][convert]['price']
+        return self.__getLatestCurrencyQuote(symbol)[symbol][0]['quote'][convert]['price']
+
+class localRedis:
+    def __init__(self):
+        self.redisConnection = get_redis_connection()
     
+    def insertDataIntoRedis(self,key,value):
+        r = self.redisConnection
+        r.hmset(key,value)
+
+    def getDataFromRedis(self,key):
+        return self.redisConnection.hgetall(key)
+
+
 cmc = CMC(secrets.API_KEY)
 
 # currency = cmc.get50Coins()
@@ -43,10 +55,4 @@ BTCtoUSD = cmc.getCurrencyPriceConverted('BTC')
 
 print(BTCtoUSD)
 
-# r = get_redis_connection()
 
-# jane = {'name': "Jane",'Age': 33,'Location': "Chawton"}
-
-# r.set('my_key', json.dumps(cmc.getPrice('BTC')))
-
-# pp(json.loads(r.get('my_key')))
