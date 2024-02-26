@@ -23,4 +23,4 @@ DeprecationWarning: Redis.hmset() is deprecated. Use Redis.hset() instead.
 
 For some reason Redis.hset() cannot take a dictionary while Redis.hmset() can.
 
-## In Computer Science, "If it aint broke, dont fix it"
+## In Computer Science: "If it aint broke, dont fix it"
