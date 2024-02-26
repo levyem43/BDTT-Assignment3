@@ -87,7 +87,6 @@ def main():
     for song in range(len(playlistData)):
         key = f"songs:{song}"
         localRedis.insertDataIntoRedis(key,playlistData[song])
-        
 
     keys = localRedis.keys()
 
@@ -98,8 +97,43 @@ def main():
     
     playlistDataFrame = pd.DataFrame().from_dict(redisData)
     
-    playlistDataFrame['popularity'] = playlistDataFrame['popularity'].astype(int)
+    processing1(playlistDataFrame)
     
-    print(playlistDataFrame.nlargest(10,'popularity')[['artist_name','track_name','popularity']])
+    processing2(playlistDataFrame)
     
+    processing3(playlistDataFrame)
+    
+def processing1(df):
+    df['popularity'] = df['popularity'].astype(int)
+    
+    print("First Processing Output")
+    print(df.nlargest(10,'popularity')[['artist_name','track_name','popularity']].to_string(index=False))
+
+def processing2(df):
+    artist_counts = df['artist_name'].value_counts().nlargest(n=10)
+    
+    # Plot aggregated results
+    artist_counts.plot(kind='bar', figsize=(8, 10))
+    plt.xticks(rotation=30)
+    plt.yticks(range(0,5,1))
+    plt.title('Number of Songs Each Artist wrote in the playlist')
+    plt.xlabel('Artist Names')
+    plt.ylabel('Number of Songs')
+    
+    # Display the plot
+    plt.show()
+    
+def processing3(df):
+    minutes_per_track = df['duration_minutes'].value_counts().sort_index()
+    
+    # Plot aggregated results
+    minutes_per_track.plot(kind='bar', figsize=(8, 8))
+    plt.title('Amount of Minutes of each track in the playlist')
+    plt.yticks(range(0,50,5))
+    plt.xlabel('Track Time (in Minutes)')
+    plt.ylabel('Amount of Tracks')
+    
+    # Display the plot
+    plt.show()
+
 main()
