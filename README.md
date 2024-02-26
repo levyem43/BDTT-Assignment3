@@ -14,5 +14,13 @@ The 2 files needed for this to work and are hidden by the .gitignore file:
 2. secrets.py which have the CLIENT_ID and CLIENT_SECRET fields
 
 # Usage
-To run this project, run the following command:
+To run this homework, run the following command:
 python3 .\spotify_api.py
+
+# PLEASE NOTE
+When this homework is run there is a warning:
+DeprecationWarning: Redis.hmset() is deprecated. Use Redis.hset() instead.
+
+For some reason Redis.hset() cannot take a dictionary while Redis.hmset() can.
+
+## In Computer Science, "If it aint broke, dont fix it"
