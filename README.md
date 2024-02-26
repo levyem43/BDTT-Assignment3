@@ -23,4 +23,6 @@ DeprecationWarning: Redis.hmset() is deprecated. Use Redis.hset() instead.
 
 For some reason Redis.hset() cannot take a dictionary while Redis.hmset() can.
 
+Also, multiple pyplots can not run simultaneously. The graph for processing3() will appear once the graph of processing2() is closed. 
+
 ## In Computer Science: "If it aint broke, dont fix it"
