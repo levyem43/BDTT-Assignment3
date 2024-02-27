@@ -22,11 +22,11 @@ def get_redis_connection():
         Redis: Redis connection object.
     """
     return redis.Redis(
-        host=config["redis"]["host"],
-        port=config["redis"]["port"],
-        db=0,
+        host = config["redis"]["host"],
+        port = config["redis"]["port"],
+        db = 0,
         decode_responses=True,
-        username=config["redis"]["user"],
-        password=config["redis"]["password"],
+        username = config["redis"]["user"],
+        password = config["redis"]["password"],
     )
 
