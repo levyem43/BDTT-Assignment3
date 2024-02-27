@@ -103,6 +103,9 @@ def main():
     
     processing3(playlistDataFrame)
     
+    # Display the plot
+    plt.show()
+    
 def processing1(df):
     df['popularity'] = df['popularity'].astype(int)
     
@@ -113,6 +116,7 @@ def processing2(df):
     artist_counts = df['artist_name'].value_counts().nlargest(n=10)
     
     # Plot aggregated results
+    plt.figure(1)
     artist_counts.plot(kind='bar', figsize=(8, 10))
     plt.xticks(rotation=30)
     plt.yticks(range(0,5,1))
@@ -120,20 +124,18 @@ def processing2(df):
     plt.xlabel('Artist Names')
     plt.ylabel('Number of Songs')
     
-    # Display the plot
-    plt.show()
     
 def processing3(df):
     minutes_per_track = df['duration_minutes'].value_counts().sort_index()
     
     # Plot aggregated results
+    plt.figure(2)
     minutes_per_track.plot(kind='bar', figsize=(8, 8))
     plt.title('Amount of Minutes of each track in the playlist')
     plt.yticks(range(0,50,5))
     plt.xlabel('Track Time (in Minutes)')
     plt.ylabel('Amount of Tracks')
     
-    # Display the plot
-    plt.show()
+
 
 main()
