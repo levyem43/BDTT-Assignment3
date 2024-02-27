@@ -16,6 +16,7 @@ Finally, does the following processing:
 
 
 **Files needed**
+
 The 2 files needed for this to work and are hidden by the .gitignore file:
 1. config.yaml which has parameters needed to connect to the local instance of Redis.
 2. secrets.py which have the CLIENT_ID and CLIENT_SECRET fields
@@ -34,6 +35,7 @@ cd BDTT-Assignment3
 ```
 
 **Run the Application**
+
 To run this homework, run the following command:
 python3 .\spotify_api.py
 
