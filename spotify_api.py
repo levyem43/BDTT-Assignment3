@@ -1,9 +1,8 @@
 import pandas as pd
-from IPython.display import display
 import matplotlib.pyplot as plt
 from db_config import get_redis_connection
 import secrets1
-import os
+import json
 
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
@@ -120,7 +119,7 @@ class Redis:
         - value: The value for the redis data being inserted
         """
         
-        self.redisConnection.hmset(key,value)
+        self.redisConnection.json().set(key,'.',json.dumps(value))
         
     def flushAllFromRedis(self):
         """
@@ -140,7 +139,8 @@ class Redis:
         - The value of the key from Redis
         """
         
-        return self.redisConnection.hgetall(key)
+        json_data = self.redisConnection.json().get(key)
+        return json.loads(json_data)
     
     def keys(self):
         """
