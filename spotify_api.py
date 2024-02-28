@@ -221,6 +221,7 @@ def processing3(df):
     plt.figure(2)
     minutes_per_track.plot(kind='bar', figsize=(8, 8))
     plt.title('Amount of Minutes of each track in the playlist')
+    plt.xticks(rotation = 0)
     plt.yticks(range(0,50,5))
     plt.xlabel('Track Time (in Minutes)')
     plt.ylabel('Amount of Tracks')
