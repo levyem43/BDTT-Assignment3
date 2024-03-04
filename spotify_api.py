@@ -201,14 +201,23 @@ def processing2(df):
     """
     artist_counts = df['artist_name'].value_counts().nlargest(n=10)
     
+    artists = []
+    for artist in artist_counts.keys():
+        if (artist =="4*TOWN (From Disney and Pixar’s Turning Red)"):
+            artist = "4*TOWN"
+        artists.append(artist)
+    
+    
     # Plot aggregated results
-    plt.figure(1)
-    artist_counts.plot(kind='bar', figsize=(8, 10))
-    plt.xticks(rotation=30)
+    plt.figure(1,figsize=(6,10))
+    
+    plt.bar(artist_counts.index, artist_counts.values)
+    plt.xticks(ticks=list(artist_counts.index), labels= artists, rotation=30)
     plt.yticks(range(0,5,1))
     plt.title('Number of Songs Each Artist wrote in the playlist')
     plt.xlabel('Artist Names')
     plt.ylabel('Number of Songs')
+    plt.subplots_adjust(bottom=0.128)
     
     
 def processing3(df):
